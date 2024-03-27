@@ -1,23 +1,22 @@
 #!/usr/bin/python3
-# Fabfile to generates a .tgz archive from the contents of web_static.
-from datetime import datetime
-from fabric.api import local
-import os.path
+# Using what you did in the task #0, extend
+# your Python script to export data in the CSV format.
 
-def do_pack():
-    """Create a tar gzipped archive of the directory web_static."""
-    dt = datetime.utcnow()
-    file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
-                                                         dt.month,
-                                                         dt.day,
-                                                         dt.hour,
-                                                         dt.minute,
-                                                         dt.second)
-    
-    if os.path.isdir("versions") is False:
-        if local("mkdir -p versions").failed is True:
-            return None
-        
-    if local("tar -cvzf {} web_static".format(file)).failed is True:
-        return None
-    return file
+import requests
+import sys
+
+
+if __name__ == "__main__":
+    USER_ID = sys.argv[1]
+    jsonplaceholder = 'https://jsonplaceholder.typicode.com/users'
+    url = jsonplaceholder + '/' + USER_ID
+    response = requests.get(url)
+    username = response.json().get('username')
+    todo_url = url + '/todos'
+    response = requests.get(todo_url)
+    tasks = response.json()
+    with open(USER_ID + '.csv', 'w') as f:
+        for task in tasks:
+            f.write('"{}","{}","{}","{}"\n'.format(USER_ID, username,
+                                                task.get('completed'),
+                                                task.get('title')))
