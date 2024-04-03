@@ -2,36 +2,27 @@
 # Write a Python script that, using this REST API, for a given
 # employee ID, returns information about his/her Todo list progress.
 
-import requests
 import sys
+import requests
 
+def fetch_todo_list_progress(employee_id):
+    url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+    response = requests.get(url)
+    if response.status_code == 200:
+        todos = response.json()
+        completed_tasks = [todo['title'] for todo in todos if todo['completed']]
+        total_tasks = len(todos)
+        number_of_completed_tasks = len(completed_tasks)
+        employee_name = todos[0]['username']  # Assumes the first todo item's 'username' represents the employee name
+        print(f"Employee {employee_name} is done with tasks ({number_of_completed_tasks}/{total_tasks}):")
+        for task in completed_tasks:
+            print(f"\t {task}")
+    else:
+        print(f"Failed to fetch data for employee ID {employee_id}")
 
 if __name__ == "__main__":
-    # Check if the script is provided with an employee ID as a command-line argument
     if len(sys.argv) != 2:
-        sys.exit(1)
-
-    employee_ID = sys.argv[1]
-    jsonplaceholder = 'https://jsonplaceholder.typicode.com/users'
-    url = f'{jsonplaceholder}/{employee_ID}'
-
-    # Make a GET request to the API
-    response = requests.get(url)
-
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        employee_name = response.json().get('name')
-        Todourl = f'{url}/todos'
-        res = requests.get(Todourl)
-        tasks = res.json()
-
-        # Filter completed tasks
-        done_tasks = [task for task in tasks if task.get('completed')]
-
-        # Display the employee TODO list progress
-        print("Employee {} is done with tasks({}/{}):".format(employee_name, len(done_tasks), len(tasks)))
-        for task in done_tasks:
-            print("\t{}".format(task.get('title')))
+        print("Usage: python script.py [employee_id]")
     else:
-        # Display an error message if the request was not successful
-        print(f"Error: Unable to fetch data. Status code: {response.status_code}")
+        employee_id = sys.argv[1]
+        fetch_todo_list_progress(employee_id)
