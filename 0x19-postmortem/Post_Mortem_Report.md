@@ -3,7 +3,7 @@
 ## 504 Error while accessing a given URL
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/bluegalaxy13/alx-system_engineering-devops/master/0x19-postmortem/Project_Meme.JPG" width=100% height=100% />
+<img src="https://raw.githubusercontent.com/bluegalaxy13/alx-system_engineering-devops/master/0x19-postmortem/Project_Meme.jpg" width=100% height=100% />
 </p>
 
 ### Incident report for [504 error / Site Outage](https://github.com/bluegalaxy13/alx-system_engineering-devops/tree/master/0x17-web_stack_debugging_3)
