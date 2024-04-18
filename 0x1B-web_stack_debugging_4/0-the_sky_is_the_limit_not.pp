@@ -15,4 +15,3 @@ exec { 'nginx-restart':
 	# Specify the path for the init.d script
 	path    => '/etc/init.d/',
 }
-
