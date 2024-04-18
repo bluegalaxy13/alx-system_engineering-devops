@@ -15,12 +15,12 @@ server {
 
         # Serve /airbnb-onepage/ route on AirBnB_v3
         location / {
-                proxy_pass https://127.0.0.1:5000/airbnb-onepage/;
+                proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
         }
 
         # Serve /number_odd_or_even/ route on AirBnB_v2
         location ~ /airbnb-dynamic/number_odd_or_even/(\d+)$ {
-                proxy_pass https://127.0.0.1:5001/airbnb-onepage/;
+                proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
         }
 
         error_page 404 /404.html;
