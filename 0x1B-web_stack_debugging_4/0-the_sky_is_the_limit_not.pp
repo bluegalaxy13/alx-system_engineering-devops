@@ -1,17 +1,18 @@
-# Increased the amount of traffic on Nginx server can handle.
-
-# Increase the ULIMIT of the default file
-exec { 'fix--for-nginx':
-	# Modify the ULIMIT value
-	command => '/bin/sed -i "s/15/4096/" /etc/default/nginx',
-	# Specify the path for the sed command
-	path   => '/usr/local/bin/:/bin/',
+# default limit
+file { '/etc/default/nginx':
+  ensure  => file,
+  content => '# /etc/default/nginx
+# Note: You may want to look at the following page before setting the ULIMIT.
+#  http://wiki.nginx.org/CoreModule#worker_rlimit_nofile
+# Set the ulimit variable if you need defaults to change.
+#  Example: ULIMIT="-n 4096"
+ULIMIT="-n 4096"
+',
+  notify  => Exec['restart_nginx'],
 }
 
-# Restart Nginx
-exec { 'nginx-restart':
-	# Restart Nginx service
-	command => '/etc/init.d/nginx restart',
-	# Specify the path for the init.d script
-	path    => '/etc/init.d/',
+exec { 'restart_nginx':
+  command     => '/usr/sbin/service nginx restart',  # Adjust the commands as per your system's init system
+  refreshonly => true,
+  subscribe   => File['/etc/default/nginx'],
 }
