@@ -7,14 +7,17 @@ apt-get -y install haproxy=1.6.\*
 
 # Configure haproxy configuration file to distribute requests using a roundrobin algorithm
 echo '
-frontend sammykingx.tech
+frontend biblestudyleaf.tech
+        timeout client 30000
         bind 0:80
-        default_backend web_servers
+        default_backend biblestudyleaf.tech_backend
 
 backend web_servers
+        timeout connect 3000
+        timeout server 30000
         balance roundrobin
-        server 284642-web-01 54.86.96.123:80
-        server 284642-web-02 54.197.21.190:80
+        server 284642-web-01 52.87.222.44:80 check
+        server 284642-web-02 18.233.65.38:80 check
 ' >> /etc/haproxy/haproxy.cfg
 
 # Restart HAproxy service
