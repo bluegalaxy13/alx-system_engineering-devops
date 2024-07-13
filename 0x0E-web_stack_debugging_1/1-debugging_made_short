@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Ensure Nginx listens on port 80
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-pkill -f nginx
+service nginx restart
