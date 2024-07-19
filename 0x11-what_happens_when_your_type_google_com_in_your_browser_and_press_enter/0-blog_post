@@ -1,0 +1,61 @@
+What happens when you type google.com in your browser and press Enter
+
+When you type a URL like https://www.google.com into your browser and hit Enter, a series of operations occur to provide the webpage you requested. Let’s break down each stage.
+
+1. DNS Request
+The DNS (Domain Name System) translates the human-readable domain name into an IP address.
+
+Cache Check: The browser first checks its cache and the OS cache for the IP address of www.google.com. If not found, it queries the local DNS resolver provided by your ISP.
+Recursive Query: If the local resolver lacks the information, it performs a recursive query, starting with root DNS servers, moving to TLD servers (e.g., .com), and finally reaching the authoritative DNS server for google.com.
+Response: The authoritative server returns the IP address of Google’s server, which is cached for future requests.
+
+2. TCP/IP
+TCP/IP (Transmission Control Protocol/Internet Protocol) sends data over the internet.
+
+Three-Way Handshake:
+SYN: The browser sends a SYN packet to the server.
+SYN-ACK: The server responds with a SYN-ACK packet.
+ACK: The browser sends an ACK packet, establishing the connection.
+
+3. Firewall
+Firewalls monitor and control network traffic based on security rules.
+
+Inspection: During the TCP handshake, firewalls inspect packets to ensure compliance with security policies.
+Pass or Block: If the packets pass inspection, the connection proceeds; otherwise, it is blocked.
+4. HTTPS/SSL
+HTTPS (HyperText Transfer Protocol Secure) uses SSL/TLS (Secure Sockets Layer/Transport Layer Security) for secure communication.
+
+SSL Handshake:
+ClientHello: The browser sends a ClientHello message with supported SSL/TLS versions and cipher suites.
+ServerHello: The server responds with a ServerHello message.
+Certificate Exchange: The server sends its SSL certificate to the browser.
+Key Exchange: Both parties exchange keys to create a session key for encryption.
+Secure Connection: Subsequent data is encrypted and secure.
+
+5. Load-Balancer
+Load-balancers distribute incoming network traffic across multiple servers to optimize resource use and ensure availability.
+
+Traffic Distribution: The load balancer decides which server will handle the request based on algorithms like round-robin or least connections.
+Forwarding: It forwards the request to the selected server.
+
+6. Web Server
+The Web Server handles HTTP requests and serves static content such as HTML, CSS, and JavaScript files.
+
+Request Handling: The server receives and processes the request for https://www.google.com.
+Static Content: If the request is for static content, the web server retrieves and sends the files back to the browser.
+
+7. Application Server
+The Application Server executes dynamic content and business logic.
+
+Dynamic Content: For dynamic content requests, the web server forwards the request to the application server.
+Processing: The application server processes the request, runs server-side scripts, and generates the necessary content.
+
+8. Database
+The Database stores and retrieves data required by the application.
+
+Query Execution: The application server queries the database for information.
+Data Retrieval: The database returns the requested data to the application server.
+Response Generation: The application server uses the data to generate a response.
+
+Conclusion
+After these steps, the generated content is sent back through the layers: from the application server to the web server, via the load balancer, encrypted via HTTPS, passing the firewall, transmitted via TCP/IP, and finally displayed in your browser. This entire process happens in a fraction of a second, providing a seamless browsing experience.
