@@ -49,11 +49,12 @@ def fetch_user_data():
         todo_list = todo_response.json()
 
         # Prepare the task list for the current user
+        TASK_COMPLETED_STATUS = todo["completed"]
         data_to_export[user_id] = [
             {
                 "username": user["username"],
                 "task": todo["title"],
-                "completed": todo["completed"]
+                "completed": TASK_COMPLETED_STATUS
             }
             for todo in todo_list
         ]
