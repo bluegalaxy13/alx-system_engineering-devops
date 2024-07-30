@@ -1,25 +1,6 @@
 #!/usr/bin/python3
 """
-Using what you did in the task #0, extend your Python script to export data in the JSON format.
-
-Requirements:
-
-Records all tasks from all employees
-Format must be:
-{
-    "USER_ID": [
-        {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS},
-        {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS},
-        ...
-    ],
-    "USER_ID": [
-        {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS},
-        {"username": "USERNAME", "task": "TASK_TITLE", "completed": TASK_COMPLETED_STATUS},
-        ...
-    ]
-}
-
-File name must be: todo_all_employees.json
+Fetches and exports data for all employees in JSON format.
 """
 
 import json
@@ -28,10 +9,11 @@ import requests
 
 def fetch_user_data():
     """
-    Fetch user information and to do lists for all employees.
+    Fetch user information and to-do lists for all employees.
 
     Returns:
-        dict: A dictionary with user IDs as keys and lists of task information as values.
+        dict: A dictionary with user IDs as keys and
+        lists of task information as values.
     """
     url = "https://jsonplaceholder.typicode.com/"
 
@@ -68,4 +50,3 @@ if __name__ == "__main__":
     # Write data to JSON file
     with open("todo_all_employees.json", "w") as jsonfile:
         json.dump(data_to_export, jsonfile, indent=4)
-    
