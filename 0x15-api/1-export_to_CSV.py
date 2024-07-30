@@ -6,6 +6,7 @@ Returns Todo list for a given employee id and exports data in the CSV format.
 import requests
 from sys import argv
 
+
 def main():
     """
     Main function to fetch user information and their todos,
@@ -16,7 +17,7 @@ def main():
 
     # Fetch user information
     user = requests.get(url + "users/{}".format(USER_ID)).json()
-    
+
     # Fetch todos for the user
     todos = requests.get(url + "todos", params={"userId": USER_ID}).json()
 
@@ -29,6 +30,7 @@ def main():
                     USER_ID, user["username"], item["completed"], item["title"]
                 )
             )
+
 
 if __name__ == "__main__":
     main()
