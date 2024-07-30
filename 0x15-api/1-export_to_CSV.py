@@ -9,22 +9,22 @@ import sys
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
 
-    user_id = sys.argv[1]
+    USER_ID = sys.argv[1]
 
-    user_response = requests.get(url + "users/{}".format(user_id))
+    user_response = requests.get(url + "users/{}".format(USER_ID))
 
     user = user_response.json()
 
-    username = user.get("username")
+    USERNAME = user.get("USERNAME")
 
-    params = {"userId": user_id}
+    params = {"userId": USER_ID}
 
     todos_response = requests.get(url + "todos", params=params)
 
     todos = todos_response.json()
 
-    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
+    with open("{}.csv".format(USER_ID), "w", newline="") as csvfile:
         writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
 
         for todo in todos:
-            writer.writerow([user_id, username, todo.get("completed"), todo.get("title")])
+            writer.writerow([USER_ID, USERNAME, todo.get("TASK_COMPLETED_STATUS"), todo.get("TASK_TITLE")])
