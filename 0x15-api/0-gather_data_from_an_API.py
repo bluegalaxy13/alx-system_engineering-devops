@@ -30,4 +30,3 @@ if __name__ == "__main__":
 
     for complete in completed:
         print("\t {}".format(complete))
-
