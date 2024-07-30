@@ -1,33 +1,42 @@
+
+#!/usr/bin/python3
+
 """
-Using what you did in the task #0, extend your Python script to export data in the JSON format.
+Python script that exports data in the JSON format.
 """
 
+from requests import get
+from sys import argv
 import json
-import requests
-import sys
 
 if __name__ == "__main__":
-    url = "https://jsonplaceholder.typicode.com/"
+    response = get('https://jsonplaceholder.typicode.com/todos/')
+    data = response.json()
 
-    user_id = sys.argv[1]
+    row = []
+    response2 = get('https://jsonplaceholder.typicode.com/users')
+    data2 = response2.json()
 
-    user = requests.get(url + "users/{}".format(user_id)).json()
-    
-    username = user.get("username")
+    for i in data2:
+        if i['id'] == int(argv[1]):
+            u_name = i['username']
+            id_no = i['id']
 
-    params = {"userId": user_id}
+    row = []
 
-    todos = requests.get(url + "todos", params=params).json()
+    for i in data:
 
-    data_to_export = {user_id: []}
+        new_dict = {}
 
-    for todo in todos:
-        task_info = {
-                "task": todo.get("title"),
-                "completed": todo.get("completed"),
-                "username": username
-        }
-        data_to_export[user_id].append(task_info)
+        if i['userId'] == int(argv[1]):
+            new_dict['username'] = u_name
+            new_dict['task'] = i['title']
+            new_dict['completed'] = i['completed']
+            row.append(new_dict)
 
-    with open("{}.json".format(user_id), "w") as jsonfile:
-        json.dump(data_to_export, jsonfile, indent=4)
+    final_dict = {}
+    final_dict[id_no] = row
+    json_obj = json.dumps(final_dict)
+
+    with open(argv[1] + ".json",  "w") as f:
+        f.write(json_obj)
