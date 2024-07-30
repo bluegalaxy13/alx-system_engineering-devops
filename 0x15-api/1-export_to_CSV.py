@@ -14,11 +14,15 @@ def main():
     url = "https://jsonplaceholder.typicode.com/"
     USER_ID = argv[1]
 
-    user = requests.get(url + f"users/{USER_ID}").json()
-    todos = requests.get(url + f"todos", params={"userId": USER_ID}).json()
+    # Fetch user information
+    user = requests.get(url + "users/{}".format(USER_ID)).json()
+    
+    # Fetch todos for the user
+    todos = requests.get(url + "todos", params={"userId": USER_ID}).json()
 
-    file = f"{USER_ID}.csv"
-    with open(file, "w") as f:
+    # Create the CSV file
+    file_name = "{}.csv".format(USER_ID)
+    with open(file_name, "w") as f:
         for item in todos:
             f.write(
                 '"{}","{}","{}","{}"\n'.format(
