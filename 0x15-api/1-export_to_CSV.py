@@ -1,30 +1,19 @@
-"""
-Using what you did in the task #0, extend your Python script to export data in the CSV format.
-"""
-
-import csv
+#!/usr/bin/python3
+"""Returns Todo list for a given employee id
+and axports data in the CSV format"""
 import requests
-import sys
+from sys import argv
 
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
+    id = argv[1]
 
-    USER_ID = sys.argv[1]
+    user = requests.get(url + f"users/{id}").json()
+    todos = requests.get(url + f"todos", params={"userId": id}).json()
 
-    user_response = requests.get(url + "users/{}".format(USER_ID))
-
-    user = user_response.json()
-
-    USERNAME = user.get("USERNAME")
-
-    params = {"userId": USER_ID}
-
-    todos_response = requests.get(url + "todos", params=params)
-
-    todos = todos_response.json()
-
-    with open("{}.csv".format(USER_ID), "w", newline="") as csvfile:
-        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-
-        for todo in todos:
-            writer.writerow([USER_ID, USERNAME, todo.get("TASK_COMPLETED_STATUS"), todo.get("TASK_TITLE")])
+    file = f"{id}.csv"
+    with open(file, "w") as f:
+        for item in todos:
+            f.write(
+                f'"{id}","{user["username"]}","{item["completed"]}", "{item["title"]}"\n'
+            )
