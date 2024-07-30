@@ -6,14 +6,14 @@ from sys import argv
 
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
-    id = argv[1]
+    USER_ID = argv[1]
 
-    user = requests.get(url + f"users/{id}").json()
-    todos = requests.get(url + f"todos", params={"userId": id}).json()
+    user = requests.get(url + f"users/{USER_ID}").json()
+    todos = requests.get(url + f"todos", params={"userId": USER_ID}).json()
 
-    file = f"{id}.csv"
+    file = f"{USER_ID}.csv"
     with open(file, "w") as f:
         for item in todos:
             f.write(
-                f'"{id}","{user["username"]}","{item["completed"]}", "{item["title"]}"\n'
+                f'"{USER_ID}","{user["username"]}","{item["completed"]}", "{item["title"]}"\n'
             )
