@@ -25,6 +25,7 @@ File name must be: todo_all_employees.json
 import json
 import requests
 
+
 def fetch_user_data():
     """
     Fetch user information and to do lists for all employees.
@@ -33,7 +34,7 @@ def fetch_user_data():
         dict: A dictionary with user IDs as keys and lists of task information as values.
     """
     url = "https://jsonplaceholder.typicode.com/"
-    
+
     # Fetch all users
     users = requests.get(url + "users").json()
 
@@ -58,6 +59,7 @@ def fetch_user_data():
         ]
 
     return data_to_export
+
 
 if __name__ == "__main__":
     # Fetch data to export
