@@ -42,19 +42,18 @@ def fetch_user_data():
 
     # Iterate over each user to fetch their todos
     for user in users:
-        user_id = user["id"]
+        user_id = user.get("id")
 
         # Fetch todos for the current user
         todo_response = requests.get(url + "todos", params={"userId": user_id})
         todo_list = todo_response.json()
 
         # Prepare the task list for the current user
-        TASK_COMPLETED_STATUS = todo["completed"]
         data_to_export[user_id] = [
             {
-                "username": user["username"],
-                "task": todo["title"],
-                "completed": TASK_COMPLETED_STATUS
+                "username": user.get("username"),
+                "task": todo.get("title"),
+                "completed": todo.get("completed")
             }
             for todo in todo_list
         ]
@@ -69,3 +68,4 @@ if __name__ == "__main__":
     # Write data to JSON file
     with open("todo_all_employees.json", "w") as jsonfile:
         json.dump(data_to_export, jsonfile, indent=4)
+    
