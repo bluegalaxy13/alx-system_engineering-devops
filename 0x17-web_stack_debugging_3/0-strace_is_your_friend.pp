@@ -1,5 +1,6 @@
-# automate a Apache 500 error fix
-exec {'typo in /var/www/html/wp-settings.php so I change file name instead':
-  path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-  command => 'mv /var/www/html/wp-includes/class-wp-locale.php /var/www/html/wp-includes/class-wp-locale.phpp'
+# Fixes bad "phpp" extensions to "php" in "wp-settings.php".
+
+exec{'fix=wordpress':
+  command => 'sed -i s/phpp/php/g /var/www/html/wp-settings.php',
+  path    => '/usr/local/bin/:/bin/'
 }
