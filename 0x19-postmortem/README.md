@@ -1,6 +1,6 @@
 # Postmortem: API Gateway Outage
 
-![When the Gateway Decides to Play Traffic Cop!](./0x19-postmortem/A_humorous_cartoon-style_diagram_depicting_a_chaot.png)
+![When the Gateway Decides to Play Traffic Cop!](/0x19-postmortem/A_humorous_cartoon-style_diagram_depicting_a_chaot.png)
 
 ## Issue Summary
 - **Duration**: The outage lasted from 14:30 to 15:45 UTC on August 16, 2024.
